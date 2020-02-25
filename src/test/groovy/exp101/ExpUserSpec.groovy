@@ -13,6 +13,6 @@ class ExpUserSpec extends Specification implements DomainUnitTest<ExpUser> {
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }

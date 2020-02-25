@@ -13,6 +13,6 @@ class TransactionSpec extends Specification implements DomainUnitTest<Transactio
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }

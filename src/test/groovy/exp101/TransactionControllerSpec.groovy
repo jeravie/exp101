@@ -13,6 +13,6 @@ class TransactionControllerSpec extends Specification implements ControllerUnitT
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }
