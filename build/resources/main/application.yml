@@ -113,28 +113,16 @@ environments:
         dataSource:
             dbCreate: update
             url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-    production:
+    production: 
         dataSource:
-            dbCreate: none
-            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-            properties:
-                jmxEnabled: true
-                initialSize: 5
-                maxActive: 50
-                minIdle: 5
-                maxIdle: 25
-                maxWait: 10000
-                maxAge: 600000
-                timeBetweenEvictionRunsMillis: 5000
-                minEvictableIdleTimeMillis: 60000
-                validationQuery: SELECT 1
-                validationQueryTimeout: 3
-                validationInterval: 15000
-                testOnBorrow: true
-                testWhileIdle: true
-                testOnReturn: false
-                jdbcInterceptors: ConnectionState
-                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+            dbCreate: update
+            driverClassName: org.postgresql.Driver
+            dialect: org.hibernate.dialect.PostgreSQLDialect
+        
+            uri: new URI(System.env.DATABASE_URL?:"postgres://tqujipnfzkdaln:f8b0375d4a6d774d3bbf235b5675aa430795823eca1b1a109d6a752ebb82f929@ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d7it3vacgcjco5")
+            url: jdbc:postgresql://tqujipnfzkdaln:f8b0375d4a6d774d3bbf235b5675aa430795823eca1b1a109d6a752ebb82f929@ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d7it3vacgcjco5
+            username: uri.userInfo.split(":")[0]
+            password: uri.userInfo.split(":")[1]
 
 ---
 server:
