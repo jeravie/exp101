@@ -119,10 +119,9 @@ environments:
             driverClassName: org.postgresql.Driver
             dialect: org.hibernate.dialect.PostgreSQLDialect
         
-            uri: new URI(System.env.DATABASE_URL?:"postgres://tqujipnfzkdaln:f8b0375d4a6d774d3bbf235b5675aa430795823eca1b1a109d6a752ebb82f929@ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d7it3vacgcjco5")
-            url: jdbc:postgresql://tqujipnfzkdaln:f8b0375d4a6d774d3bbf235b5675aa430795823eca1b1a109d6a752ebb82f929@ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d7it3vacgcjco5
-            username: uri.userInfo.split(":")[0]
-            password: uri.userInfo.split(":")[1]
+            url: "jdbc:postgres://tqujipnfzkdaln:f8b0375d4a6d774d3bbf235b5675aa430795823eca1b1a109d6a752ebb82f929@ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d7it3vacgcjco5"
+            username: tqujipnfzkdaln
+            password: f8b0375d4a6d774d3bbf235b5675aa430795823eca1b1a109d6a752ebb82f929
 
 ---
 server:
