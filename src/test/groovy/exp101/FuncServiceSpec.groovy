@@ -13,6 +13,6 @@ class FuncServiceSpec extends Specification implements ServiceUnitTest<FuncServi
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }

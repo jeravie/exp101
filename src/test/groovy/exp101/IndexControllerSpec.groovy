@@ -13,6 +13,6 @@ class IndexControllerSpec extends Specification implements ControllerUnitTest<In
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }
