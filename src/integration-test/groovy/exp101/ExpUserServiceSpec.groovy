@@ -20,7 +20,7 @@ class ExpUserServiceSpec extends Specification {
         new ExpUser(userName: 'user4').save(failOnError: true)
         new ExpUser(userName: 'user5').save(failOnError: true)
         //assert false, "TODO: Provide a setupData() implementation for this generated test suite"
-        return expUser.id
+        expUser.id
     }
 
     void "test get"() {
