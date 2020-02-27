@@ -5,57 +5,120 @@ import static org.springframework.http.HttpStatus.*
 
 class ExpUserController {
 
-    def index() { }
+    ExpUserService expUserService
+    TransactionService transactionService
 
-    def create() {
-        respond new ExpUser()
-    }
+    static allowedMethods = [save: "POST", update: "PUT", delete: "GET"] 
 
-    def save() {
-        render params
-        if (params == null) {
-            redirect(uri: "/") 
-            return
-        }
-
-        try {
-            def user = new ExpUser(userName: params.userName)
-            //user.addToTransactions(new Transaction(runningBalance: params.runningBalance))
-            user.save()
-            redirect(controller: "expUser", action: "show", id: user.id)
-        } catch (ValidationException e) {
-            respond user.errors, view:'create'
-            return
-        }
-        
+    def index(Integer max) {
+        //params.max = Math.min(max ?: 10, 100)
+        //respond expUserService.list(params), model:[expUserCount: expUserService.count()]
+        redirect(uri:"/")
     }
 
     def show(Long id) {
-        def userInstance = ExpUser.get(id)
+        //respond expUserService.get(id)
+        def userInstance = expUserService.get(id)
+        
         if (userInstance == null) {
-            redirect(uri: "/") 
-        } else {
+            redirect(uri: "/")
+        }
+        else {
+            //def userTransactions = userInstance.transactions.listOrderByTransactionDate()
             [userInstance: userInstance]
         }
         
     }
 
-    def test() {
-        def user = new ExpUser(userName: 'Sue')
-        user.comments = 'nothing'
-        user.save()
-        render user.comments + "<BR>"
-        user.comments = 'zip'
-        user.save()
-        render user.comments + "<BR>"
-
-        def user2 = new ExpUser(userName: 'Peter')
-        user2.comments = 'nada'
-        user2.save()
-        render user2.comments + "<BR>"
-        user2.comments = 'rien'
-        user2.save()
-        render user2.comments + "<BR>"
+    def create() {
+        respond new ExpUser(params)
     }
 
+    def save(ExpUser expUser) {
+        if (expUser == null) {
+            notFound()
+            return
+        }
+
+        try {
+            expUser.addToTransactions(new Transaction(transactionRef: 'Opening balance', amountZAR: params.amountZAR, runningBalance: params.amountZAR))
+            expUserService.save(expUser)
+        } catch (ValidationException e) {
+            respond expUser.errors, view:'create'
+            return
+        }
+
+        redirect(controller: "expUser", action: "show", id: expUser.id)
+        /*
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'expUser.label', default: 'ExpUser'), expUser.id])
+                redirect expUser
+            }
+            '*' { respond expUser, [status: CREATED] }
+        }
+        */
+    }
+
+    def edit(Long id) {
+        respond expUserService.get(id)
+    }
+
+    def update(ExpUser expUser) {
+        if (expUser == null) {
+            notFound()
+            return
+        }
+
+        try {
+            expUser.addToTransactions(new Transaction(amountZAR: 500, runningBalance: 500))
+            expUserService.save(expUser)
+        } catch (ValidationException e) {
+            respond expUser.errors, view:'edit'
+            return
+        }
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'expUser.label', default: 'ExpUser'), expUser.id])
+                redirect expUser
+            }
+            '*'{ respond expUser, [status: OK] }
+        }
+    }
+
+    def delete(Long id) {
+        if (params.confirm == null) {
+            redirect(uri: "/")
+        } else {
+            if (id == null) {
+            notFound()
+            return
+            }
+            if (params.confirm == '1') {
+                expUserService.delete(id)
+            }
+            redirect(uri: "/")
+        }
+        
+        /*
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'expUser.label', default: 'ExpUser'), id])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: NO_CONTENT }
+        }
+        */
+    }
+
+    protected void notFound() {
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'expUser.label', default: 'ExpUser'), params.id])
+                redirect action: "index", method: "GET"
+            }
+            '*'{ render status: NOT_FOUND }
+        }
+    }
 }

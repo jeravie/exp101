@@ -5,7 +5,20 @@ import static org.springframework.http.HttpStatus.*
 
 class TransactionController {
 
-    def index() { }
+    TransactionService transactionService
+    ExpUserService expUserService
+    FuncService funcService
+
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    def index(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        respond transactionService.list(params), model:[transactionCount: transactionService.count()]
+    }
+
+    def show(Long id) {
+        respond transactionService.get(id)
+    }
 
     def create() {
         respond new Transaction(params)
@@ -13,42 +26,85 @@ class TransactionController {
 
     def save() {
         render params
-        def user = ExpUser.get(params.id)
-        //render "***["+user.id+"]***"
-        //user.userName = 'Santie'
-        //user.addToTransactions(new Transaction(transactionType: -1, transactionDate: new Date(), amountZAR: 1, amountUSD: 1, runningBalance: 1, transactionRef: 'niks2'))
-        //user.addToTransactions(new Transaction(amountZAR: params.amountZAR))
-        //user.save()
-        //render user.errors
-        if (user == null) {
-            redirect(uri: "/") 
+        def expUser = expUserService.get(params.id)
+        if (expUser == null) {
+            notFound()
             return
         }
 
         try {
-            //def tr = new Transaction(amountZAR: params.amountZAR)
-            //user.addToTransactions(new Transaction(amountZAR: 0))
-            //user.addToTransactions(new Transaction(runningBalance: params.amountZAR))
-            //def user2 = user //new User(userName: 'Gerry')
-            user.updateDate = new Date()
-            
-            //user.userName = 'Pietertjie'
-            //user.addToTransactions(new Transaction(transactionType: -1, transactionDate: new Date(), amountZAR: 1, amountUSD: 1, runningBalance: 1, transactionRef: 'niks2'))
-            //user.addToTransactions(new Transaction(amountZAR: params.amountZAR))
-            user.save()
-            render user.updateDate + " | " +user.createDate
-            render user.errors
-            render '<BR>'
-            render user.id
-            render '<BR>'
-            //render user.transactions
-            //render user.errors
-            //render user.transactions
-            //redirect(controller: "user", action: "show", id: user.id)
 
+            def transactionValue = 0
+            if (params.abs == '1') {
+                transactionValue = Math.abs(Float.parseFloat(params.amountZAR))
+            } else {
+                transactionValue = Math.abs(Float.parseFloat(params.amountZAR)) * -1
+            }
+            def balance = funcService.getRunningBalance(expUser)
+            def newBalance = balance + transactionValue
+            def usd = funcService.getCurrency('USD', params.amountZAR)
+            
+            expUser.addToTransactions(new Transaction(amountZAR: transactionValue, amountUSD: usd, transactionRef: params.transactionRef, runningBalance: newBalance))
+            expUserService.save(expUser)
         } catch (ValidationException e) {
-            respond user.errors, view:'create'
+            respond transaction.errors, view:'create'
             return
+        }
+
+        redirect(controller: "expUser", action: "show", id: expUser.id)
+        
+    }
+
+    def edit(Long id) {
+        respond transactionService.get(id)
+    }
+
+    def update(Transaction transaction) {
+        if (transaction == null) {
+            notFound()
+            return
+        }
+
+        try {
+            transactionService.save(transaction)
+        } catch (ValidationException e) {
+            respond transaction.errors, view:'edit'
+            return
+        }
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'transaction.label', default: 'Transaction'), transaction.id])
+                redirect transaction
+            }
+            '*'{ respond transaction, [status: OK] }
+        }
+    }
+
+    def delete(Long id) {
+        if (id == null) {
+            notFound()
+            return
+        }
+
+        transactionService.delete(id)
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'transaction.label', default: 'Transaction'), id])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: NO_CONTENT }
+        }
+    }
+
+    protected void notFound() {
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'transaction.label', default: 'Transaction'), params.id])
+                redirect action: "index", method: "GET"
+            }
+            '*'{ render status: NOT_FOUND }
         }
     }
 }

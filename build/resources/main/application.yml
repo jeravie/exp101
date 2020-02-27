@@ -107,7 +107,7 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: update
+            dbCreate: create-drop
             url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     test:
         dataSource:
@@ -119,7 +119,7 @@ environments:
             driverClassName: org.postgresql.Driver
             dialect: org.hibernate.dialect.PostgreSQLDialect
         
-            url: "jdbc:postgres://tqujipnfzkdaln:f8b0375d4a6d774d3bbf235b5675aa430795823eca1b1a109d6a752ebb82f929@ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d7it3vacgcjco5"
+            url: jdbc:postgres://tqujipnfzkdaln:f8b0375d4a6d774d3bbf235b5675aa430795823eca1b1a109d6a752ebb82f929@ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d7it3vacgcjco5
             username: tqujipnfzkdaln
             password: f8b0375d4a6d774d3bbf235b5675aa430795823eca1b1a109d6a752ebb82f929
 

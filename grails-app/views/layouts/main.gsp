@@ -23,6 +23,10 @@
                 font-family: "Nunito"
             }
 
+            h1,h2,h3,h4,h5 {
+                font-weight: 300;
+            }
+
             .full-height {
                 height: 100vh;
             }
@@ -63,9 +67,9 @@
                 color:#333333;
             }
             .card {
-				
-				background: transparent;
-				
+				background: #ffffff;
+                min-height:300px;
+                border:0;
 			}
 			.card-header {
 				background: #126091;
@@ -86,18 +90,29 @@
             .btn-primary {
                 background-color:#126091;
                 border:0;
+                font-size: 100%;
             }
             .btn-primary:hover {
-                background-color:#f60;
+                background-color:#036;
+                
+            }
+            .btn-secondary {
+                background-color:#f30;
+                border:0;
+                font-size: 100%;
+            }
+            .btn-secondary:hover {
+                background-color:#f00;
                 
             }
             .btn-default {
                 background-color:#555555;
                 border:0;
                 color:#ffffff;
+                font-size: 100%;
             }
             .btn-default:hover {
-                background-color:#f60;
+                background-color:#444444;
                 
             }
         </style>
@@ -107,10 +122,12 @@
 <body>
 <div class="flex-center position-ref full-height">
     <div class="top-right links">
-        <a href="/"><i class="fa fa-money"></i> Expenses</a>
+        <a href="/"><i class="fa fa-money"></i> Home</a>
     </div>
 
+    
     <div class="content">
+        
         <g:layoutBody/>
     </div>
 </div>

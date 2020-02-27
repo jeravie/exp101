@@ -2,7 +2,6 @@ package exp101
 
 class Transaction {
 
-    Integer transactionType = 0
     Date transactionDate = new Date()
     Float amountZAR = 0
     Float amountUSD = 0

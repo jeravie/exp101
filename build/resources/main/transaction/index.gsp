@@ -24,5 +24,7 @@
                 <g:paginate total="${transactionCount ?: 0}" />
             </div>
         </div>
+
+        
     </body>
 </html>
