@@ -38,7 +38,7 @@ class TransactionServiceSpec extends Specification {
 
         then:
         transactionList.size() == 2
-        //assert false, "TODO: Verify the correct instances are returned"
+        assert true, "Verify the correct instances are returned"
     }
 
     void "test count"() {
