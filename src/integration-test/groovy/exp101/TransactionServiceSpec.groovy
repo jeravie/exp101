@@ -20,7 +20,7 @@ class TransactionServiceSpec extends Specification {
         new Transaction(amountZAR: 100, amountUSD: 7, runningBalance: 100, transactionRef: 'test').save(failOnError: true)
         new Transaction(amountZAR: 100, amountUSD: 7, runningBalance: 100, transactionRef: 'test').save(failOnError: true)
         //assert false, "TODO: Provide a setupData() implementation for this generated test suite"
-        return transaction.id
+        transaction.id
     }
 
     void "test get"() {
