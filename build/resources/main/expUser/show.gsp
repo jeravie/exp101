@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'expUser.label', default: 'ExpUser')}" />
+        <g:set var="entityName" value="User Expense Sheet" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -10,10 +10,13 @@
                     <div class="card">
                             
                         <div class="card-header">
-                                <h4><i class="fa fa-money"></i> Welcome ${userInstance.userName}</h4>
-                                <span style="color:#abcdef">Balance: 
+                            <h4><i class="fa fa-file-text-o"></i> Expense Sheet: ${userInstance.userName}</h4>
+                            <span style="color:#abcdef">Balance: 
                                 <g:formatNumber number="${userInstance.transactions.amountZAR.sum()}" currencyCode="ZAR" type="currency"  format="###,##0" />
                             </span>
+                            <button class="btn btn-default" style="float:right;font-size:60%" onclick="javascript:confirm('User and related sheets will be deleted. Continue?')? document.location='/expUser/delete/${userInstance.id}?confirm=1':null">
+                                <i class="fa fa-unlink"></i> Delete
+                            </button>
                         </div>
                         <div class="card-body">
 
@@ -42,6 +45,7 @@
                             </table>
                             
                             <p>&nbsp;</p>
+                            <button class="btn btn-default" onclick="javascript:document.location='/'"><i class="fa fa-home"></i> Home</button>
                             <button class="btn btn-primary" onclick="javascript:document.location='/transaction/create/${userInstance.id}?abs=1'"><i class="fa fa-angle-double-up"></i> Add Funds</button>
                             <button class="btn btn-secondary" onclick="javascript:document.location='/transaction/create/${userInstance.id}?abs=0'"><i class="fa fa-angle-double-down"></i> Add Expense</button>
                             <button class="btn btn-default"><i class="fa fa-file-excel-o"></i> Export CSV</button>

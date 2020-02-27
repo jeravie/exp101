@@ -1,6 +1,6 @@
-#Wed, 26 Feb 2020 06:08:44 +0200
+#Thu, 27 Feb 2020 06:58:38 +0200
 
 info.app.version=0.1
 info.app.name=exp101
-grails.env=development
+grails.env=test
 info.app.grailsVersion=4.0.1
