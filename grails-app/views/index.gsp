@@ -11,7 +11,7 @@
                 <div class="card-header"><i class="fa fa-money"></i> Expense Sheets</div>
                 <div class="card-body">
                     <p align=left>
-                        <button onclick="document.location='/expUser/create'"  class="btn btn-primary">Create New</button>
+                        <button onclick="document.location='/expUser/create'"  class="btn btn-primary">Create New Sheet</button>
                     </p>
                     <div style='display:${users.size > 0 ? "block":"none"}'>&nbsp;</div>
                     <div style='display:${users.size > 0 ? "block":"none"}'>

@@ -36,7 +36,7 @@
                                 </tr>    
                                 <g:each var="t" in="${userInstance.transactions.sort{a,b->a.transactionDate.compareTo(b.transactionDate)}}">
                                     <tr ${t.amountZAR < 0 ? "style=background-color:#FFD7C4" : ""}>
-                                        <td>${t.transactionDate}</td>
+                                        <td><g:formatDate date="${t.transactionDate}"/></td>
                                         <td>${t.amountZAR < 0 ? "Expense" : "Deposit"}</td>
                                         <td>${t.transactionRef}</td>
                                         <td style="text-align:right"><g:formatNumber number="${t.amountZAR}" currencyCode="ZAR" type="currency"  format="###,##0" /></td>

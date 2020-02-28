@@ -26,7 +26,7 @@ class TransactionController {
     }
 
     def save() {
-        render params
+        //render params
         def expUser = expUserService.get(params.id)
         if (expUser == null) {
             notFound()
@@ -69,14 +69,16 @@ class TransactionController {
             return
         }
 
-        def transactions = ExpUser.get(id).transactions as List<Transaction>
+        def transactions = expUserService.get(id).transactions as List<Transaction>
         
         if (transactions.size() > 0) {
-            def filename = 'Export_'+user.id + '_timestamp.csv'
+            def filename = 'Export-userid_'+id + '-timestamp.csv'
 
             def filecontent = ""
             transactions.each { Transaction t ->
-                filecontent << "${t.transactionDate},${t.transactionRef},${t.amountZAR},${t.amountUSD},${t.runningBalance}\n"
+                
+                filecontent = filecontent + "${t.transactionDate},${t.transactionRef},${t.amountZAR},${t.amountUSD},${t.runningBalance}\r\n"
+                println "${t.transactionDate},${t.transactionRef},${t.amountZAR},${t.amountUSD},${t.runningBalance}"
             }
     
             response.setHeader "Content-disposition", "attachment; filename=${filename}"
