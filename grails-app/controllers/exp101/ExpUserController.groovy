@@ -7,8 +7,9 @@ class ExpUserController {
 
     ExpUserService expUserService
     TransactionService transactionService
+    FuncService funcService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "GET"] 
+    static allowedMethods = [save: "POST", update: "PUT", delete: "POST"] 
 
     def index(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
@@ -41,7 +42,8 @@ class ExpUserController {
         }
 
         try {
-            expUser.addToTransactions(new Transaction(transactionRef: 'Opening balance', amountZAR: params.amountZAR, runningBalance: params.amountZAR))
+            def amountUSD = funcService.getUSDCurrency(params.amountZAR)
+            expUser.addToTransactions(new Transaction(transactionRef: 'Opening balance', amountZAR: params.amountZAR, amountUSD: amountUSD, runningBalance: params.amountZAR))
             expUserService.save(expUser)
         } catch (ValidationException e) {
             respond expUser.errors, view:'create'
@@ -71,6 +73,7 @@ class ExpUserController {
         }
 
         try {
+            
             expUser.addToTransactions(new Transaction(amountZAR: 500, runningBalance: 500))
             expUserService.save(expUser)
         } catch (ValidationException e) {
@@ -88,28 +91,18 @@ class ExpUserController {
     }
 
     def delete(Long id) {
-        if (params.confirm == null) {
+        
+        if (request.method == 'GET') {
             redirect(uri: "/")
         } else {
             if (id == null) {
             notFound()
             return
             }
-            if (params.confirm == '1') {
-                expUserService.delete(id)
-            }
+            expUserService.delete(id)
             redirect(uri: "/")
         }
-        
-        /*
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'expUser.label', default: 'ExpUser'), id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
-        */
+
     }
 
     protected void notFound() {

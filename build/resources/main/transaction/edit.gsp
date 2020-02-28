@@ -6,35 +6,33 @@
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
     <body>
-        <a href="#edit-transaction" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-                <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-            </ul>
-        </div>
-        <div id="edit-transaction" class="content scaffold-edit" role="main">
-            <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
-            </g:if>
-            <g:hasErrors bean="${this.transaction}">
-            <ul class="errors" role="alert">
-                <g:eachError bean="${this.transaction}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-                </g:eachError>
-            </ul>
-            </g:hasErrors>
-            <g:form resource="${this.transaction}" method="PUT">
-                <g:hiddenField name="version" value="${this.transaction?.version}" />
-                <fieldset class="form">
-                    <f:all bean="transaction"/>
-                </fieldset>
-                <fieldset class="buttons">
-                    <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-                </fieldset>
-            </g:form>
-        </div>
+        <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                            
+                        <div class="card-header">
+                            <i class="fa fa-edit"></i> Edit Transaction
+                        </div>
+                        <div class="card-body">
+                            <form action="/transaction/update/${transaction.id}" method="POST">
+                                <div class="form-group">
+                                    <input type="text" required placeholder="Your reference?" name="transactionRef" value="${transaction.transactionRef}" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" required placeholder="ZAR amount?" name="amountZAR" min=0 value="${Math.abs(transaction.amountZAR)}" class="form-control" step="0.01">
+                                </div>
+                                <div class="form-group" style="text-align:left">
+                                    <input type="radio" name="abs" value="1" ${(transaction.amountZAR > 0) ? "checked" : ""}> Deposit<BR>
+                                    <input type="radio" name="abs" value="0" ${(transaction.amountZAR < 0) ? "checked" : ""}> Expense
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-default" onclick="document.location='/expUser/show/${transaction.expUser.id}'">Back</button>
+                                    <button type="submit" name="create" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </body>
 </html>

@@ -56,7 +56,6 @@ dependencies:
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/com.bertramlabs.plugins/asset-pipeline-grails/3.0.10/eda36419486bb8263d16d2353e528fedfd2aa42d/asset-pipeline-grails-3.0.10.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/2.23.4/a35b6f8ffcfa786771eac7d7d903429e790fdf3f/mockito-core-2.23.4.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-support/3.14.0/2a8bfbe41c44a14f5674ea7bbcfc577259d34f99/selenium-support-3.14.0.jar
-- file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-chrome-driver/3.14.0/a8fa5d063821f70dab0b7170d4b814ef49ce4962/selenium-chrome-driver-3.14.0.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-firefox-driver/3.14.0/f35ddc0b5e0e09be644df14ada85d83e6b8b3f3c/selenium-firefox-driver-3.14.0.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-remote-driver/3.14.0/434c26e9df775d8f49619f7275a65a36d2d72ceb/selenium-remote-driver-3.14.0.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-api/3.14.0/73e6db9b3cdc42966679a2112bfde9efbef16223/selenium-api-3.14.0.jar

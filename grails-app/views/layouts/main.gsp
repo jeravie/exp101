@@ -83,9 +83,12 @@
                 border: 1px #999999 solid;
                 background: #ffffff;
                 color:#444444;
+                
             }
             td {
                 border: 1px #999999 dashed;
+                padding: 3px;
+                text-align:left;
             }
             .btn-primary {
                 background-color:#126091;
@@ -97,12 +100,12 @@
                 
             }
             .btn-secondary {
-                background-color:#f30;
+                background-color:#f60;
                 border:0;
                 font-size: 100%;
             }
             .btn-secondary:hover {
-                background-color:#f00;
+                background-color:#f30;
                 
             }
             .btn-default {
