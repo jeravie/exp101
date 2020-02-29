@@ -100,15 +100,15 @@ hibernate:
 dataSource:
     pooled: true
     jmxExport: true
-    driverClassName: org.h2.Driver
-    username: sa
-    password: ''
+    driverClassName: org.postgresql.Driver
+    username: levvtscajkutoi
+    password: '228ecdfa78f05dbd2d581e893119b9e02b745f9b7a06367c7bc15e31eaeeb5b4'
 
 environments:
     development:
         dataSource:
             dbCreate: create-drop
-            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:postgresql://ec2-54-246-90-10.eu-west-1.compute.amazonaws.com:5432/d4eg7crmcfiv0r?sslmode=require
     test:
         dataSource:
             dbCreate: update
@@ -116,7 +116,7 @@ environments:
     production: 
         dataSource:
             dbCreate: create-drop
-            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:postgresql://ec2-54-246-90-10.eu-west-1.compute.amazonaws.com:5432/d4eg7crmcfiv0r?sslmode=require
 
 ---
 server:

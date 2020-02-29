@@ -47,13 +47,10 @@ class FuncService {
 
     def getUSDCurrency(String amountZAR) {
         
-        //def jsonStr = '{"rates":{"USD":0.0660873264},"base":"ZAR","date":"2020-02-26"}' //
         def endPoint = 'https://api.exchangeratesapi.io/latest?'
         def qs = "base=ZAR&symbols=USD"
         def jsonStr = "$endPoint$qs".toURL().text
         
-        //render jsonStr
-        //JsonOutput.prettyPrint(jsonStr)
         def json = new JsonSlurper().parseText(jsonStr)
         def (rootKey, currencyValue) = json.findResult { k, v -> [k, v.USD] }
 
@@ -62,6 +59,5 @@ class FuncService {
 
         def myVal = new BigDecimal(currencyValue) * new BigDecimal(amountZAR)
         return new Float(myVal)
-        //return currencyValue
     }
 }

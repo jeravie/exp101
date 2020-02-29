@@ -46,7 +46,6 @@ dependencies:
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.grails.plugins/scaffolding/4.0.0.RC1/4e4537ba947b441bc02278781dc4d97be6420ac9/scaffolding-4.0.0.RC1.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.grails/grails-datastore-gorm-hibernate5/7.0.1.RELEASE/a832849fe1063484e17318d4c19787512b7a483d/grails-datastore-gorm-hibernate5-7.0.1.RELEASE.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/5.4.0.Final/70ec4c8742c53bc018610ec001bd90837d54ee2b/hibernate-core-5.4.0.Final.jar
-- file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.mariadb.jdbc/mariadb-java-client/2.4.1/39e4b7b5cac8ba2ccd5399bf62294fcc9463324d/mariadb-java-client-2.4.1.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.glassfish.web/el-impl/2.1.2-b03/6bab1211b6e6b191fdbf06067bd05d2f75a62ac0/el-impl-2.1.2-b03.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/com.h2database/h2/1.4.199/7bf08152984ed8859740ae3f97fae6c72771ae45/h2-1.4.199.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.37/2c378637f6faff77541244e8257b446f04324bd8/mysql-connector-java-5.1.37.jar
@@ -54,6 +53,7 @@ dependencies:
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/2.3.1/dd6dda9da676a54c5b36ca2806ff95ee017d8738/jaxb-runtime-2.3.1.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/javax.xml.bind/jaxb-api/2.3.0/99f802e0cb3e953ba3d6e698795c4aeb98d37c48/jaxb-api-2.3.0.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/com.bertramlabs.plugins/asset-pipeline-grails/3.0.10/eda36419486bb8263d16d2353e528fedfd2aa42d/asset-pipeline-grails-3.0.10.jar
+- file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.postgresql/postgresql/9.4.1208.jre7/368ab5589354e156a2aaa9c3bbb13524d76d0a65/postgresql-9.4.1208.jre7.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/2.23.4/a35b6f8ffcfa786771eac7d7d903429e790fdf3f/mockito-core-2.23.4.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-support/3.14.0/2a8bfbe41c44a14f5674ea7bbcfc577259d34f99/selenium-support-3.14.0.jar
 - file:/C:/Users/Jeanette/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-firefox-driver/3.14.0/f35ddc0b5e0e09be644df14ada85d83e6b8b3f3c/selenium-firefox-driver-3.14.0.jar

@@ -1,18 +1,17 @@
 package exp101
 
 import grails.testing.gorm.DomainUnitTest
+import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Stepwise
 
 class ExpUserSpec extends Specification implements DomainUnitTest<ExpUser> {
 
-    def setup() {
-    }
+    void "test ExpUser"() {
+        setup:
+        def x = new ExpUser(userName: 'Robert').save()
 
-    def cleanup() {
-    }
-
-    void "test something"() {
-        expect:"fix me"
-            true == true
+        expect:
+            x.id > 0
     }
 }

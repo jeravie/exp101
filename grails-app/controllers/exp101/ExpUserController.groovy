@@ -12,20 +12,16 @@ class ExpUserController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "POST"] 
 
     def index(Integer max) {
-        //params.max = Math.min(max ?: 10, 100)
-        //respond expUserService.list(params), model:[expUserCount: expUserService.count()]
         redirect(uri:"/")
     }
 
     def show(Long id) {
-        //respond expUserService.get(id)
         def userInstance = expUserService.get(id)
         
         if (userInstance == null) {
             redirect(uri: "/")
         }
         else {
-            //def userTransactions = userInstance.transactions.listOrderByTransactionDate()
             [userInstance: userInstance]
         }
         
@@ -51,43 +47,11 @@ class ExpUserController {
         }
 
         redirect(controller: "expUser", action: "show", id: expUser.id)
-        /*
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'expUser.label', default: 'ExpUser'), expUser.id])
-                redirect expUser
-            }
-            '*' { respond expUser, [status: CREATED] }
-        }
-        */
+
     }
 
     def edit(Long id) {
         respond expUserService.get(id)
-    }
-
-    def update(ExpUser expUser) {
-        if (expUser == null) {
-            notFound()
-            return
-        }
-
-        try {
-            
-            expUser.addToTransactions(new Transaction(amountZAR: 500, runningBalance: 500))
-            expUserService.save(expUser)
-        } catch (ValidationException e) {
-            respond expUser.errors, view:'edit'
-            return
-        }
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'expUser.label', default: 'ExpUser'), expUser.id])
-                redirect expUser
-            }
-            '*'{ respond expUser, [status: OK] }
-        }
     }
 
     def delete(Long id) {
