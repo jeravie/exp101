@@ -38,8 +38,10 @@ class ExpUserController {
         }
 
         try {
-            def amountUSD = funcService.getUSDCurrency(params.amountZAR)
-            expUser.addToTransactions(new Transaction(transactionRef: 'Opening balance', amountZAR: params.amountZAR, amountUSD: amountUSD, runningBalance: params.amountZAR))
+            def factor = funcService.getExchangeRateFactorUSD()
+            def amountUSD = new Float(new BigDecimal(factor) * new BigDecimal(params.amountZAR))
+
+            expUser.addToTransactions(new Transaction(transactionRef: 'Opening balance', amountZAR: params.amountZAR, amountUSD: amountUSD, exchangeRateFactorUSD: factor, runningBalance: params.amountZAR))
             expUserService.save(expUser)
         } catch (ValidationException e) {
             respond expUser.errors, view:'create'

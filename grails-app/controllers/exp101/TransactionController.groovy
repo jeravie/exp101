@@ -36,18 +36,19 @@ class TransactionController {
         try {
 
             def transactionValue = 0
-            def usd = funcService.getUSDCurrency(params.amountZAR)
+            def factor = funcService.getExchangeRateFactorUSD()
+            def usd = new Float(new BigDecimal(factor) * new BigDecimal(params.amountZAR))
 
-            if (params.abs == '1') {
+            if (params.abs == '1') { //deposit
                 transactionValue = Math.abs(Float.parseFloat(params.amountZAR))
-            } else {
+            } else { //expense
                 transactionValue = Math.abs(Float.parseFloat(params.amountZAR)) * -1
                 usd = usd * -1
             }
             def balance = funcService.getRunningBalance(expUser)
             def newBalance = balance + transactionValue
             
-            expUser.addToTransactions(new Transaction(amountZAR: transactionValue, amountUSD: usd, transactionRef: params.transactionRef, runningBalance: newBalance))
+            expUser.addToTransactions(new Transaction(amountZAR: transactionValue, amountUSD: usd, exchangeRateFactorUSD: factor, transactionRef: params.transactionRef, runningBalance: newBalance))
             expUserService.save(expUser)
         } catch (ValidationException e) {
             respond transaction.errors, view:'create'
@@ -58,11 +59,6 @@ class TransactionController {
         
     }
 
-    def currency() {
-        //def usd = funcService.getUSDCurrency(params.id)
-        //render "ZAR"+params.id+" => USD" + usd
-    }
-
     def exportCSV(Long id) {
         if (id == null) {
             redirect (uri:"/")
@@ -70,15 +66,15 @@ class TransactionController {
         }
 
         def transactions = expUserService.get(id).transactions as List<Transaction>
-        
+        transactions.sort{a,b->a.id.compareTo(b.id)}
+
         if (transactions.size() > 0) {
             def filename = 'Export-userid_'+id + '-timestamp.csv'
 
-            def filecontent = ""
+            def filecontent = "TransactionID,Transaction Date,Reference,Amount ZAR,Transient Amount USD,Transient USD Exchange Rate, Running Balance ZAR\r\n"
+            
             transactions.each { Transaction t ->
-                
-                filecontent = filecontent + "${t.transactionDate},${t.transactionRef},${t.amountZAR},${t.amountUSD},${t.runningBalance}\r\n"
-                println "${t.transactionDate},${t.transactionRef},${t.amountZAR},${t.amountUSD},${t.runningBalance}"
+                filecontent = filecontent + "${t.id},${t.transactionDate},${t.transactionRef},${t.amountZAR},${t.amountUSD},${t.runningBalance}\r\n"
             }
     
             response.setHeader "Content-disposition", "attachment; filename=${filename}"
@@ -99,7 +95,6 @@ class TransactionController {
     }
 
     def update() {
-        //render params
         def transaction = transactionService.get(params.id)
         if (transaction == null) {
             notFound()
@@ -110,18 +105,20 @@ class TransactionController {
 
             def transactionValue = 0
             def balance = 0
-            def usd = funcService.getUSDCurrency(params.amountZAR)
+            def usd = 0  
+            def factor = transaction.exchangeRateFactorUSD  //exchange rate as it was at transaction creation
 
-            if (params.abs == '1') {
+            if (params.abs == '1') { //deposit
                 transactionValue = Math.abs(Float.parseFloat(params.amountZAR))
-            } else {
+                usd = new Float(factor * transactionValue)
+            } else { //expense
                 transactionValue = Math.abs(Float.parseFloat(params.amountZAR)) * -1
-                usd = usd * -1
+                usd = new Float(factor * transactionValue)
             }
+            usd.round(2)
 
             if (params.id != '1') {
                 balance = funcService.getRunningBalanceUpUntilBeforeTransaction(transaction, transaction.expUser.transactions as List)
-                //render balance
             }
             
             def newBalance = balance + transactionValue

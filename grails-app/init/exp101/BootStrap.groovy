@@ -12,22 +12,25 @@ class BootStrap {
     def init = { servletContext ->
 
         def amountUSD = 0
+        def factor = 0
         def expUser = new ExpUser(userName: 'James')
         
-        amountUSD = funcService.getUSDCurrency('50000')
-        expUser.addToTransactions(new Transaction(transactionRef: 'Opening balance', amountZAR: 50000, amountUSD: amountUSD, runningBalance: 50000))
+        factor = funcService.getExchangeRateFactorUSD()
+
+        amountUSD = new Float(factor * 50000)
+        expUser.addToTransactions(new Transaction(transactionRef: 'Opening balance', amountZAR: 50000, amountUSD: amountUSD, exchangeRateFactorUSD: factor, runningBalance: 50000))
         
-        amountUSD = -1 * funcService.getUSDCurrency('6500')
-        expUser.addToTransactions(new Transaction(transactionRef: 'Rent', amountZAR: -6500, amountUSD: amountUSD, runningBalance: (50000-6500)))
+        amountUSD = -1 * new Float(factor * 6500)
+        expUser.addToTransactions(new Transaction(transactionRef: 'Rent', amountZAR: -6500, amountUSD: amountUSD, exchangeRateFactorUSD: factor, runningBalance: (50000-6500)))
         
-        amountUSD = -1 * funcService.getUSDCurrency('50')
-        expUser.addToTransactions(new Transaction(transactionRef: 'Coffee', amountZAR: -50, amountUSD: amountUSD, runningBalance: (50000-6500-50)))
+        amountUSD = -1 * new Float(factor * 50)
+        expUser.addToTransactions(new Transaction(transactionRef: 'Coffee', amountZAR: -50, amountUSD: amountUSD, exchangeRateFactorUSD: factor, runningBalance: (50000-6500-50)))
         
-        amountUSD = funcService.getUSDCurrency('1500')
-        expUser.addToTransactions(new Transaction(transactionRef: 'Sold TV', amountZAR: 1500, amountUSD: amountUSD, runningBalance: (50000-6500-50+1500)))
+        amountUSD = new Float(factor * 1500)
+        expUser.addToTransactions(new Transaction(transactionRef: 'Sold TV', amountZAR: 1500, amountUSD: amountUSD, exchangeRateFactorUSD: factor, runningBalance: (50000-6500-50+1500)))
         
-        amountUSD = -1 * funcService.getUSDCurrency('1350')
-        expUser.addToTransactions(new Transaction(transactionRef: 'Fuel', amountZAR: -1350, amountUSD: amountUSD, runningBalance: (50000-6500-50+1500-1350)))
+        amountUSD = -1 * new Float(factor * 1350)
+        expUser.addToTransactions(new Transaction(transactionRef: 'Fuel', amountZAR: -1350, amountUSD: amountUSD, exchangeRateFactorUSD: factor, runningBalance: (50000-6500-50+1500-1350)))
 
         expUserService.save(expUser)
 

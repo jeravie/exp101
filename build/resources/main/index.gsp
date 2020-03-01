@@ -15,7 +15,7 @@
                     </p>
                     <div style='display:${users.size > 0 ? "block":"none"}'>&nbsp;</div>
                     <div style='display:${users.size > 0 ? "block":"none"}'>
-                        <h4 align=left style="font-weight:bold">Existing Sheets:</h4>
+                        <h4 align=left style="font-weight:bold">View Existing Sheets:</h4>
                     </div>
                     <p>&nbsp;</p>
                     <p align=left>

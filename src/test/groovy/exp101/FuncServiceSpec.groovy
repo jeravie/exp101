@@ -6,9 +6,9 @@ import spock.lang.*
 class FuncServiceSpec extends Specification implements ServiceUnitTest<FuncService> {
 
     /*
-    void "test getUSDCurrency"() {
+    void "test getExchangeRateFactorUSD"() {
         expect: 
-            service.getUSDCurrency("50") != null
+            service.getExchangeRateFactorUSD() >= 0
 
     }
     
@@ -22,7 +22,7 @@ class FuncServiceSpec extends Specification implements ServiceUnitTest<FuncServi
             service.getRunningBalance(expUser) == 500
 
     }
-
     */
+    
     
 }

@@ -34,14 +34,14 @@
                                     <td style="text-align:right">ZAR<BR>Running Balance</td>
                                     <td>&nbsp;</td>
                                 </tr>    
-                                <g:each var="t" in="${userInstance.transactions.sort{a,b->a.transactionDate.compareTo(b.transactionDate)}}">
+                                <g:each var="t" in="${userInstance.transactions.sort{a,b->a.id.compareTo(b.id)}}">
                                     <tr ${t.amountZAR < 0 ? "style=background-color:#FFD7C4" : ""}>
-                                        <td><g:formatDate date="${t.transactionDate}" type="time" style="MEDIUM" /></td>
+                                        <td><g:formatDate date="${t.transactionDate}" /></td>
                                         <td>${t.amountZAR < 0 ? "Expense" : "Deposit"}</td>
                                         <td>${t.transactionRef}</td>
                                         <td style="text-align:right"><g:formatNumber number="${t.amountZAR}" currencyCode="ZAR" type="currency"  format="###,##0" /></td>
-                                        <td style="text-align:right"><g:formatNumber number="${t.amountUSD}" type="currency" format="###,##0" /></td>
-                                        <td style="text-align:right"><g:formatNumber number="${t.runningBalance}" currencyCode="ZAR" type="currency"  format="###,##0" /></td>
+                                        <td style="text-align:right" title="1 ZAR to USD ${t.exchangeRateFactorUSD} rate"><g:formatNumber number="${t.amountUSD}" type="currency" format="###,##0" /></td>
+                                        <td style="${t.runningBalance < 0 ? style='text-align:right;background-color:#f60;color:#ffffff' : 'text-align:right;'}"><g:formatNumber number="${t.runningBalance}" currencyCode="ZAR" type="currency"  format="###,##0" /></td>
                                         <td style="text-align:center"><button class="btn btn-default" style="padding:4px" onclick="javascript:document.location='/transaction/edit/${t.id}'"><i class="fa fa-edit"></i> Edit</button>
                                     </tr>
                                 </g:each>
