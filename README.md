@@ -1,16 +1,16 @@
-# Basic Grails Expense Sheet
-- Create expenses sheet per prompted unique username. Insert/update transaction based on amount or type.
+# Basic Grails Expense Sheet with H2 in-memory database
+- Create expenses sheet per prompted unique username. 
+- Insert/update transaction based on amount or type.
+- Transient USD value per transaction is saved.
 - Export a sheet to CSV.
-- No overdraft limitation
 
-# Getting started on localhost
-- Install JDK 11.0.6 and setup environment variables
-- Install Grails 4.0.1 and setup environment variables
+# Installation requirements for app
+- Install JDK 11.0.6 and setup environment variables.
+- Install Grails 4.0.1 and setup environment variables.
 
 # Running the app
+- Remove /build folder in app root before running.
 - CLI: grails run-app - (check port in application.yml if error with 8080, set to something else and run again)
 
-# Optimisations
-- Rather use email address than a user name for uniqueness
-- Create a full text index on email field in database to speed up search by text
+
 
