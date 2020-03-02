@@ -3,6 +3,7 @@
 - Insert/update transaction based on amount or type.
 - Transient USD value per transaction is saved.
 - Export a sheet to CSV.
+- To do still: rework balance calculation functions to use sub list instead of for loop.
 
 # Installation requirements for app
 - Install JDK 11.0.6 and setup environment variables.
