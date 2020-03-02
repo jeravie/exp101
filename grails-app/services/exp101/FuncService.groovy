@@ -8,11 +8,19 @@ import java.math.BigDecimal
 class FuncService {
 
     def getRunningBalance(ExpUser expUser) {
+        /*
+            Sum all amountZAR to get runningBalance for new transaction.
+            This function is used for creating a new transaction.
+        */
         return expUser.transactions.amountZAR.sum()
     }
 
     def getRunningBalanceUpUntilBeforeTransaction(Transaction thisTransaction, List<Transaction> expUserTransactions) {
-        //assuming transaction ids are chronological and correspond to transactions occurrence
+        /*
+            Sum all amountZAR to get runningBalance up until previous transaction, 
+            in order to use in calculation of this transaction's new running balance.
+            This function is used for UPDATING transaction.
+        */
         
         def newBalance = 0
         
@@ -29,7 +37,10 @@ class FuncService {
     }
 
     def recalculateFollowingTransactionRunningBalances(Transaction thisTransaction, List<Transaction> expUserTransactions) {
-        //assuming transaction ids are chronological and correspond to transactions occurrence
+        /*
+            Recalculation of running balances from after this.
+            This function is used after UPDATING the directly preceding transaction.
+        */
         
         expUserTransactions.sort{a,b->a.id.compareTo(b.id)}
 
