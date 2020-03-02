@@ -20,6 +20,7 @@ class FuncService {
             Sum all amountZAR to get runningBalance up until previous transaction, 
             in order to use in calculation of this transaction's new running balance.
             This function is used for UPDATING transaction.
+            To do still...: rework procedure to do this with sub list
         */
         
         def newBalance = 0
@@ -40,6 +41,7 @@ class FuncService {
         /*
             Recalculation of running balances from after this.
             This function is used after UPDATING the directly preceding transaction.
+            To do still...: rework procedure to do this with sub list
         */
         
         expUserTransactions.sort{a,b->a.id.compareTo(b.id)}
