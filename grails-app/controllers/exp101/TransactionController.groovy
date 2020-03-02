@@ -22,6 +22,10 @@ class TransactionController {
     }
 
     def create() {
+        if (params.abs == null) {
+            redirect (uri: "/")
+            return
+        }
         respond new Transaction(params)
     }
 
