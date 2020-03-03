@@ -20,42 +20,42 @@ class FuncService {
             Sum all amountZAR to get runningBalance up until previous transaction, 
             in order to use in calculation of this transaction's new running balance.
             This function is used for UPDATING transaction.
-            To do still...: rework procedure to do this with sub list
         */
-        
-        def newBalance = 0
-        
+
+        def runningBalance = 0
+        def lastIndex = (expUserTransactions.size()-1)
+        def transactionSubList = []
+
         expUserTransactions.sort{a,b->a.id.compareTo(b.id)}
 
-        expUserTransactions.each { t ->
-            if (t.id < thisTransaction.id) {
-                newBalance = newBalance + t.amountZAR
-                //println t.id + " | " + t.amountZAR + "<BR>"
-            }
+        transactionSubList = expUserTransactions.findAll{thisTransaction.id > it.id} 
+        
+        transactionSubList.each { t ->
+            runningBalance = runningBalance + t.amountZAR
+            //println runningBalance
         }
 
-        return newBalance
+        return runningBalance
     }
 
     def recalculateFollowingTransactionRunningBalances(Transaction thisTransaction, List<Transaction> expUserTransactions) {
         /*
             Recalculation of running balances from after this.
             This function is used after UPDATING the directly preceding transaction.
-            To do still...: rework procedure to do this with sub list
         */
         
-        expUserTransactions.sort{a,b->a.id.compareTo(b.id)}
-
         def previousRunningBalance = thisTransaction.runningBalance
+        def transactionSubList = []
 
-        expUserTransactions.each { t ->
-            if (t.id > thisTransaction.id) {
-                t.runningBalance = previousRunningBalance + t.amountZAR
-                previousRunningBalance = t.runningBalance
-                t.save()
-            }
+        expUserTransactions.sort{a,b->a.id.compareTo(b.id)}
+        transactionSubList = expUserTransactions.findAll{thisTransaction.id < it.id}
+
+        transactionSubList.each { t ->
+            t.runningBalance = previousRunningBalance + t.amountZAR
+            previousRunningBalance = t.runningBalance
+            t.save()
         }
-
+        
     }
 
     def getExchangeRateFactorUSD() {
